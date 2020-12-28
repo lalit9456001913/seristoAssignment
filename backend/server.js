@@ -31,7 +31,7 @@ app.get('/ping',async(req,res)=>{
 
 app.post('/saveContacts/:email',async(req,res)=>{
     console.log(req.params.email)
-    
+    let email=req.params.email
     const len=req.body.length
     console.log(len)
     for(let i=0;i<len;i++){
@@ -46,7 +46,8 @@ app.post('/saveContacts/:email',async(req,res)=>{
             } 
         });
     }
-    res.status(200).send({ "status": true, "code": 200})
+    let contacts = await Contact.find({'loggedInEmail':email})
+    res.status(200).send({ "status": true, "code": 200,contacts})
 })
 
 app.get('/getContacts/:email',async(req,res)=>{

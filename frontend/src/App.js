@@ -13,12 +13,11 @@ class App extends React.Component {
     }
   }
   responseGoogle=(response)=>{
-    console.log(response)
+    
     localStorage.setItem('accessToken',response.accessToken)
-    console.log(response.profileObj.email)
+    
     localStorage.setItem('loggedInEmail',response.profileObj.email)
-    const check=localStorage.getItem('loggedInEmail')
-    console.log(check)
+   
     if(response.profileObj){
       this.setState({
         ...this.state,
@@ -28,8 +27,18 @@ class App extends React.Component {
   
 
 render(){
-  return(<Home />)
   
+  const token=localStorage.getItem('accessToken')
+  if(token){
+    return(<Home />)
+  }else{
+    return(<GoogleLogin
+      clientId="30052336210-i4272ggike1pkpovcrccl6dfn6ds8udt.apps.googleusercontent.com"
+      onSuccess={this.responseGoogle}
+      onFailure={this.responseGoogle}
+
+    />)
+  }
  }
 }
 

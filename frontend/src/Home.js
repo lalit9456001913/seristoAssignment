@@ -1,10 +1,37 @@
 import './App.css';
 import React from 'react'
-import GoogleLogout from 'react-google-login';
-import { Redirect } from 'react-router-dom';
-import App from './App.js'
-import { withRouter } from "react-router-dom";
 import GoogleContacts from 'react-google-contacts';
+
+const data=[
+
+  {
+    'name':'lalit',
+    'email':'lalit@gmail.com',
+    'mobile':'9773950838'
+  },
+  {
+    'name':'pankaj',
+    'email':'pankaj@gmail.com',
+    'mobile':'9761003677'
+  },
+  {
+    'name':'aditya',
+    'email':'aditya@gmail.com',
+    'mobile':'9999999999'
+  },
+  {
+    'name':'gaurav',
+    'email':'gaurav@gmail.com',
+    'mobile':'9999999991'
+  },
+  {
+    'name':'atul',
+    'email':'atul@gmail.com',
+    'mobile':'9999999992'
+  }
+
+
+]
 
 class Home extends React.Component{
   componentDidMount(){
@@ -13,9 +40,9 @@ class Home extends React.Component{
       console.log(data)
     })
   }
- 
+
   responseCallback=(response)=>{
-    const requestOptions = {
+      const requestOptions = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -25,12 +52,11 @@ class Home extends React.Component{
     }
     
     let email=localStorage.getItem('loggedInEmail')
-    console.log('/saveContacts/'+email)
-    fetch('/saveContacts/'+email,requestOptions).then(response=>{
-     console.log(response)
+    fetch('/saveContacts/'+email,requestOptions).then(response=>response.json()).then(data=>{
+      console.log(data)
     })
   }
-    
+
   
 
   render(){
